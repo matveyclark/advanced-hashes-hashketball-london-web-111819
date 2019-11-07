@@ -190,8 +190,95 @@ def player_stats(player_name)
   end
   result
 end
-# binding.pry
 
+def big_shoe_rebounds
+  shoe_sizes = []
+  game_hash.each do |location|
+    location[1][:players].each do |player|
+      shoe_sizes.push(player[:shoe])
+    end
+  end
+  game_hash.each do |location|
+    location[1][:players].each do |player|
+      if shoe_sizes.max == player[:shoe]
+        return player[:rebounds]
+      end
+    end
+  end
+end
+
+def most_points_scored
+  points = []
+  game_hash.each do |location|
+    location[1][:players].each do |player|
+      points.push(player[:points])
+    end
+  end
+  game_hash.each do |location|
+    location[1][:players].each do |player|
+      if points.max == player[:points]
+        return player[:player_name]
+      end
+    end
+  end
+end
+
+def winning_team
+  nets_points = 0
+  hornets_points = 0
+  game_hash.each do |location|
+    if location[1][:team_name] == "Brooklyn Nets"
+      location[1][:players].each do |player|
+        nets_points += player[:points]
+      end
+    else
+        location[1][:players].each do |player|
+        hornets_points += player[:points]
+      end
+    end
+  end
+  if nets_points > hornets_points
+    return "Brooklyn Nets"
+  else
+    return "Charlotte Hornets"
+  end
+end
+
+def player_with_longest_name
+  names_array = []
+  game_hash.each do |location|
+    location[1][:players].each do |player|
+      names_array.push(player[:player_name])
+    end
+  end
+  target_name = names_array.max_by(&:length)
+  game_hash.each do |location|
+    location[1][:players].each do |player|
+      if player[:player_name] == target_name
+        return player[:player_name]
+      end
+    end
+  end
+end
+
+def long_name_steals_a_ton?
+  result = true
+  steals_array = []
+  game_hash.each do |location|
+    location[1][:players].each do |player|
+      steals_array.push(player[:steals])
+    end
+  end
+  most_steals = steals_array.max
+  game_hash.each do |location|
+    location[1][:players].each do |player|
+      if player[:steals] == most_steals
+         result = true
+      end
+    end
+  end
+  result
+end
 
 
 
