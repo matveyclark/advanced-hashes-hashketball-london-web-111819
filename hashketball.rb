@@ -195,6 +195,62 @@ def player_stats(player)
   result
 end
 
+def big_shoe_rebounds
+  hash = game_hash
+  shoes = []
+  hash.each do |location|
+    location[1][:players].each do |player|
+      shoes.push(player[:shoe])
+    end
+  end
+  hash.each do |location|
+     location[1][:players].each do |player|
+        if shoes.max == player[:shoe]
+          return player[:rebounds]
+        end
+    end
+  end
+end
+
+def most_points_scored
+  hash = game_hash
+  scores = []
+  hash.each do |location|
+    location[1][:players].each do |player|
+      scores.push(player[:points])
+    end
+  end
+  hash.each do |location|
+    location[1][:players].each do |player|
+       if scores.max == player[:points]
+         return player[:player_name]
+       end
+   end
+ end
+end
+
+def winning_team
+  hash = game_hash
+  team_one = 0
+  team_two = 0
+  hash[:home][:players].each do |home_player|
+    team_one += home_player[:points]
+  end
+  hash[:away][:players].each do |away_player|
+    team_two += away_player[:points]
+  end
+  if team_one > team_two
+    "#{hash[:home][:team_name]}"
+  else
+    "#{hash[:away][:team_name]}"
+  end
+end
+
+
+
+
+
+
 
 
 
