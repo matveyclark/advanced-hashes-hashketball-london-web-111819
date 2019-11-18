@@ -56,7 +56,7 @@ def game_hash
             :rebounds => 2,
             :assists => 2,
             :steals => 4,
-            :blocks => 1,
+            :blocks => 11,
             :slam_dunks => 15
           }
         ]
