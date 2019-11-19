@@ -257,6 +257,26 @@ def player_with_longest_name
   names.max_by(&:length)
 end
 
+def long_name_steals_a_ton?
+  target = player_with_longest_name
+  hash = game_hash
+  steals = []
+  hash.each do |location|
+    location[1][:players].each do |player|
+      steals.push(player[:steals])
+    end
+  end
+  hash.each do |location|
+    location[1][:players].each do |player|
+      if player[:player_name] == target
+        if player[:steals] == steals.max
+          return true
+        end
+      end
+    end
+  end
+end
+
 
 
 
